@@ -11,69 +11,72 @@
 </head>
 <body>
     <h2>
-        Invoice Generator
+        Invoice Calculator
     </h2>
     <p>
-        Please fill out the following fields to calculate the total price <br>
+        Please fill out the following fields to calculate the total price of your items <br>
         To add another item, click on the + button <br>
         To remove an item, click on the - button
     </p>
     <main>
-        <div class="label-name">
-            <label>
-                Item
-            </label>
+        <div class = "row">
+            <div class="label-name">
+                <label>
+                    Item
+                </label>
+            </div>
+
+            <div class="input-field">
+                <input type="text" id="item"/>
+            </div>
+
+            <div class="label-name">
+                <label>
+                    Quantity
+                </label>
+            </div>
+
+            <div class="input-field">
+                <input type="number" id="quantity"  step=".001"/>
+            </div>
+
+            <div class="label-name">
+                <label>
+                    Metric unit
+                </label>
+            </div>
+
+            <div class="input-field">
+                <input type="text" id="metric-unit"/>
+            </div>
+
+            <div class="label-name">
+                <label>
+                    Price
+                </label>
+            </div>
+
+            <div class="input-field">
+                <input type="number" id="price" step=".01"/>
+            </div>
         </div>
 
-        <div class="input-field">
-            <input type="text" id="item"/>
-        </div>
-
-        <div class="label-name">
-            <label>
-                Quantity
-            </label>
-        </div>
-
-        <div class="input-field">
-            <input type="number" id="quantity"  step=".001"/>
-        </div>
-
-        <div class="label-name">
-            <label>
-                Metric unit
-            </label>
-        </div>
-
-        <div class="input-field">
-            <input type="text" id="metric-unit"/>
-        </div>
-
-        <div class="label-name">
-            <label>
-                Price
-            </label>
-        </div>
-
-        <div class="input-field">
-            <input type="number" id="price" step=".01"/>
+        <div class="add-and-remove-container">
+            <button class="add-button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+            <button class="remove-button">
+                <i class="fa fa-minus" aria-hidden="true"></i>
+            </button>
         </div>
     </main>
 
-    <div class="add-and-remove-container">
-        <button class="add-button">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
-        <button class="remove-button">
-            <i class="fa fa-minus" aria-hidden="true"></i>
-        </button>
-    </div>
 
     <div class="calculation">
 
         <div class="total-price-wrapper">
             <button class="calculate">
-                Calculate total price without VAT:
+                Calculate total price without VAT
             </button>
 
             <span></span>
@@ -84,12 +87,12 @@
                 VAT (in percentage):
             </label>
 
-            <input type="number" id="quantity"/>
+            <input type="number" id="vat"/>
         </div>
 
         <div class="total-price-wrapper">
             <button class="calculate">
-                Calculate total price with VAT:
+                Calculate total price with VAT
             </button>
 
             <span></span>
