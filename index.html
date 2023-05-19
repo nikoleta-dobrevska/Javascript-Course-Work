@@ -18,11 +18,12 @@
         To add another item, click on the + button <br>
         To remove an item, click on the - button
     </p>
+    <p id="removeItemWarning"></p>
     <main>
         <div class = "row">
             <div class="label-name">
                 <label>
-                    Item
+                    Item:
                 </label>
             </div>
 
@@ -32,7 +33,7 @@
 
             <div class="label-name">
                 <label>
-                    Quantity
+                    Quantity:
                 </label>
             </div>
 
@@ -42,7 +43,7 @@
 
             <div class="label-name">
                 <label>
-                    Metric unit
+                    Metric unit:
                 </label>
             </div>
 
@@ -52,7 +53,7 @@
 
             <div class="label-name">
                 <label>
-                    Price
+                    Price:
                 </label>
             </div>
 
@@ -73,16 +74,16 @@
 
 
     <div class="calculation">
-
         <div class="total-price-wrapper">
+            <p>Click here to calculate the total price without added VAT:</p>
             <button class="calculate">
-                Calculate total price without VAT
+                Calculate
             </button>
 
             <span></span>
         </div>
 
-        <div class="total-price-wrapper">
+        <div class="vat-wrapper">
             <label>
                 VAT (in percentage):
             </label>
@@ -91,13 +92,14 @@
         </div>
 
         <div class="total-price-wrapper">
+            <p>Click here to calculate the total price with added VAT:</p>
             <button class="calculate">
-                Calculate total price with VAT
+                Calculate
             </button>
 
             <span></span>
         </div>
     </div>
-    <script src="javascript.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

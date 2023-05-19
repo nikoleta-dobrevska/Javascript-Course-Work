@@ -1,9 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-image: url('background.jpg');}
 
 h2, p {
     text-align: center;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 h2 {
@@ -15,7 +19,7 @@ h2 {
 p {
     margin-top: 15px;
     color: rgb(159, 118, 12);
-    font-size: 17px;
+    font-size: 15px;
 }
 
 main, .row {
@@ -26,11 +30,26 @@ main, .row {
     justify-content: center;
 }
 
+#removeItemWarning {
+    visibility: hidden;
+    color: red;
+    animation: blinker 1s linear infinite;
+    font-size: large;
+}
+
+@keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+
 .label-name, .total-price-wrapper {
-    margin-top: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 15px;
     padding: 15px;
     color: rgb(120, 88, 7);
     font-weight: 800;
+    font-size: 15px;
 }
 
 .input-field {
@@ -72,9 +91,30 @@ main, .row {
 }
 
 .calculate {
-    font-size: 20px;
+    font-size: 17px;
     color:rgb(120, 88, 7);
-    background-color: antiquewhite;
+    background-color: transparent;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     border: 1px solid gray;
-    border-radius: 10px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+span {
+    font-size: 25px;
+}
+
+.total-price-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.vat-wrapper label {
+    margin: 15px;
+    color: rgb(120, 88, 7);
+    font-weight: 800;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
 }
