@@ -24,14 +24,14 @@ const warning = document.getElementById("removeItemWarning");
 
 function removeItemException() {
     warning.style.visibility = "visible"; 
-    warning.innerHTML = "You can't delete the first row!";
+    warning.innerHTML = "You can't delete the first row until you've added another one!";
 
     setTimeout(function () {
         warning.style.visibility = "hidden";
     }, 5000);   
 }
 
-const main = document.getElementsByTagName("main")[0];
+const main = document.getElementById("main");
 const labels = ["Item:", "Quantity:", "Metric unit:", "Price:"];
 
 
@@ -68,7 +68,6 @@ function addItem() {
 
     const newRow = document.createElement("div");
     newRow.classList.add("row");
-    main.appendChild(newRow);
 
     labels.forEach(element => {
         const newLabelHolder = document.createElement("div");
@@ -110,24 +109,27 @@ function addItem() {
     const newRemoveButton = document.createElement("button");
     newRemoveButton.classList.add("remove-button");
     newRemoveButton.appendChild(removeButtonIcon);
-    newRemoveButton.addEventListener('click', removeItem);
+
+    newRemoveButton.addEventListener('click', () => {
+        main.removeChild(newRow);
+        const allRows = document.getElementsByClassName("row");
+        const oldButtonHolder = allRows[allRows.length-1].lastElementChild;
+        oldButtonHolder.insertAdjacentElement("afterbegin", addButton);
+    });
 
     removeButton.removeEventListener('click', removeItemException);
 
     buttonHolder.appendChild(addButton);
     buttonHolder.appendChild(newRemoveButton);
-    main.appendChild(buttonHolder);
-}
-
-//removes the respective row
-function removeItem() {
+    newRow.appendChild(buttonHolder);
+    main.appendChild(newRow);
 }
 
 const calculateWithoutVatButton = document.getElementsByClassName("calculate")[0];
 calculateWithoutVatButton.addEventListener('click', calculatePriceWithoutVat);
 
 const priceWithoutVatText = document.getElementsByTagName("span")[0];
-let bgn = " BGN";
+const bgn = " BGN";
 
 //calculates the total price without added VAT
 function calculatePriceWithoutVat() {    
@@ -161,13 +163,13 @@ calculateWithVatButton.addEventListener('click', calculateTotalPrice);
 
 let totalPriceText = document.getElementsByTagName("span")[1];
 
-let vatField = values[values.length-1];
+const vatField = values[values.length-1];
 
 //validates the VAT field exclusively
 function validateVatField() {
     let isValid = true;
 
-    if(!vatField.value || parseFloat(vatField.value) <= 0 || !Number.isInteger(parseFloat(vatField.value))) {        
+    if(!vatField.value || parseInt(vatField.value) <= 0) {        
         vatField.style.border = "1px solid red";
 
         warning.style.visibility = "visible"; 
@@ -196,9 +198,7 @@ function calculateTotalPrice() {
         vatField.style.border = "1px solid grey";
     }
 
-    const vat = document.getElementById("vat").value;
-
-    parseFloat(vat);
+    const vat = parseInt(document.getElementById("vat").value);
 
     totalPrice = (priceWithoutVat * vat) / 100 + priceWithoutVat;
 

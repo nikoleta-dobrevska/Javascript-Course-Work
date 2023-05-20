@@ -19,7 +19,7 @@
         To remove an item, click on the - button
     </p>
     <p id="removeItemWarning"></p>
-    <main>
+    <main id="main">
         <div class = "row">
             <div class="label-name">
                 <label>
@@ -60,15 +60,15 @@
             <div class="input-field">
                 <input type="number" class="price" id="price" step=".01"/>
             </div>
-        </div>
 
-        <div class="add-and-remove-container">
-            <button class="add-button">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-            <button class="remove-button">
-                <i class="fa fa-minus" aria-hidden="true"></i>
-            </button>
+            <div class="add-and-remove-container">
+                <button class="add-button">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+                <button class="remove-button">
+                    <i class="fa fa-minus" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
     </main>
 
@@ -88,7 +88,7 @@
                 VAT:
             </label>
 
-            <input type="number" id="vat" step="1"/>
+            <input type="number" id="vat"/>
             
             <label>
                 %
