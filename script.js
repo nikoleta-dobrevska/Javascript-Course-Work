@@ -36,15 +36,15 @@ const labels = ["Item:", "Quantity:", "Metric unit:", "Price:"];
 
 
 //checks whether the input fields are empty or filled with incorrect data
-function validateInput() {
+function validateInputs() {
     let isValid = true;
 
     for (let i = 0; i < values.length-1; i++) {
-        if (!values[i].value) {
+        if (!values[i].value || parseFloat(values[i].value) <= 0 ) {
             values[i].style.border = "1px solid red";
 
             warning.style.visibility = "visible"; 
-            warning.innerHTML = "You can't add new items unless you have filled all current fields!"
+            warning.innerHTML = "Invalid input/s or empty field/s!"
 
             isValid = false;
         }
@@ -55,7 +55,7 @@ function validateInput() {
 
 //creates a new row with the labels and their respective input fields
 function addItem() {
-    if (!validateInput()) {
+    if (!validateInputs()) {
         return;
     } else {
         warning.style.visibility = "hidden"; 
@@ -112,6 +112,8 @@ function addItem() {
     newRemoveButton.appendChild(removeButtonIcon);
     newRemoveButton.addEventListener('click', removeItem);
 
+    removeButton.removeEventListener('click', removeItemException);
+
     buttonHolder.appendChild(addButton);
     buttonHolder.appendChild(newRemoveButton);
     main.appendChild(buttonHolder);
@@ -128,9 +130,8 @@ const priceWithoutVatText = document.getElementsByTagName("span")[0];
 let bgn = " BGN";
 
 //calculates the total price without added VAT
-function calculatePriceWithoutVat() {
-    if (!validateInput()) {
-        warning.innerHTML = "You can't perform calculations with empty fields!";
+function calculatePriceWithoutVat() {    
+    if (!validateInputs()) {
         return;
     } else {
         warning.style.visibility = "hidden"; 
@@ -166,21 +167,16 @@ let vatField = values[values.length-1];
 function validateVatField() {
     let isValid = true;
 
-    if(!vatField.value) {        
+    if(!vatField.value || parseFloat(vatField.value) <= 0 || !Number.isInteger(parseFloat(vatField.value))) {        
         vatField.style.border = "1px solid red";
 
         warning.style.visibility = "visible"; 
-        warning.innerHTML = "You can't calculate the total price without adding VAT!"
+        warning.innerHTML = "Invalid input!"
 
         isValid = false;
     }
 
-    if(isNaN(parseInt(vatField.value))) {        
-        vatField.style.border = "1px solid red";
-
-        warning.style.visibility = "visible"; 
-        warning.innerHTML = "VAT has to be a whole number!"
-
+    if(!validateInputs()) {
         isValid = false;
     }
 
@@ -189,6 +185,8 @@ function validateVatField() {
 
 //calculates the total price with added VAT
 function calculateTotalPrice() {
+    calculatePriceWithoutVat();
+
     if (!validateVatField()) {
         return;
     } else {
@@ -199,6 +197,8 @@ function calculateTotalPrice() {
     }
 
     const vat = document.getElementById("vat").value;
+
+    parseFloat(vat);
 
     totalPrice = (priceWithoutVat * vat) / 100 + priceWithoutVat;
 
