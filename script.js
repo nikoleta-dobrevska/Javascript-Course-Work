@@ -8,6 +8,8 @@ function resetValues() {
         values[i].value = '';
     }
 
+    values[values.length-2].checked="true";
+
     priceWithoutVat = 0;
     totalPrice = 0;
 }
@@ -17,19 +19,9 @@ resetValues();
 const addButton = document.getElementsByClassName("add-button")[0];
 addButton.addEventListener('click', addItem);
 
-const removeButton = document.getElementsByClassName("remove-button")[0];
-removeButton.addEventListener('click', removeItemException);
+const removeButton = document.getElementById("firstRemBtn");
 
 const warning = document.getElementById("removeItemWarning");
-
-function removeItemException() {
-    warning.style.visibility = "visible"; 
-    warning.innerHTML = "You can't delete the first row until you've added another one!";
-
-    setTimeout(function () {
-        warning.style.visibility = "hidden";
-    }, 5000);   
-}
 
 const main = document.getElementById("main");
 const labels = ["Item:", "Quantity:", "Metric unit:", "Price:"];
@@ -39,7 +31,7 @@ const labels = ["Item:", "Quantity:", "Metric unit:", "Price:"];
 function validateInputs() {
     let isValid = true;
 
-    for (let i = 0; i < values.length-1; i++) {
+    for (let i = 0; i < values.length-2; i++) {
         if (!values[i].value || parseFloat(values[i].value) <= 0 ) {
             values[i].style.border = "1px solid red";
 
@@ -52,6 +44,8 @@ function validateInputs() {
 
     return isValid;
 }
+
+const allRows = document.getElementsByClassName("row");
 
 //creates a new row with the labels and their respective input fields
 function addItem() {
@@ -109,20 +103,34 @@ function addItem() {
     const newRemoveButton = document.createElement("button");
     newRemoveButton.classList.add("remove-button");
     newRemoveButton.appendChild(removeButtonIcon);
+    newRemoveButton.style.display = "inline-block";
 
-    newRemoveButton.addEventListener('click', () => {
-        main.removeChild(newRow);
-        const allRows = document.getElementsByClassName("row");
-        const oldButtonHolder = allRows[allRows.length-1].lastElementChild;
-        oldButtonHolder.insertAdjacentElement("afterbegin", addButton);
-    });
-
-    removeButton.removeEventListener('click', removeItemException);
+    removeButton.style.display = "inline-block";
+    
+    newRemoveButton.addEventListener('click', () => removeItem(newRow, addButton));
+    removeButton.addEventListener('click', () => removeItem(allRows[0], addButton));
 
     buttonHolder.appendChild(addButton);
     buttonHolder.appendChild(newRemoveButton);
     newRow.appendChild(buttonHolder);
     main.appendChild(newRow);
+}
+
+function removeItem(item, addButton) {
+    if(allRows.length <= 1) {
+        warning.innerHTML = "You can't delete the last row left!";
+        warning.style.visibility = "visible";
+        
+        setTimeout(function () {
+            warning.style.visibility = "hidden";
+        }, 5000); 
+
+        return;
+    }
+
+    main.removeChild(item);
+    const oldButtonHolder = allRows[allRows.length-1].lastElementChild;
+    oldButtonHolder.insertAdjacentElement("afterbegin", addButton);
 }
 
 const calculateWithoutVatButton = document.getElementsByClassName("calculate")[0];
@@ -204,3 +212,24 @@ function calculateTotalPrice() {
 
     totalPriceText.innerHTML = totalPrice.toFixed(2) + bgn;
 }
+
+const checkBox = document.getElementById("noVat");
+
+const vatWrapper = document.getElementById("vat-wrapper");
+const totalPriceWrapper = document.getElementById("total-price-wrapper");
+const totalPriceAndVatWrapper = document.getElementById("total-price-and-vat-wrapper");
+
+checkBox.addEventListener('click', check);
+
+function check() {
+    if (!checkBox.checked) {
+        totalPriceAndVatWrapper.style.display = "flex";
+        vatWrapper.style.display = "block";
+        totalPriceWrapper.style.display = "none"
+    } else {
+        totalPriceAndVatWrapper.style.display = "none";
+        vatWrapper.style.display = "none";
+        totalPriceWrapper.style.display = "flex"
+    }
+}
+

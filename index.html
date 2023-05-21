@@ -13,12 +13,15 @@
     <h2>
         Invoice Calculator
     </h2>
+
     <p>
         Please fill out the following fields to calculate the total price of your items <br>
         To add another item, click on the + button <br>
         To remove an item, click on the - button
     </p>
+
     <p id="removeItemWarning"></p>
+
     <main id="main">
         <div class = "row">
             <div class="label-name">
@@ -65,7 +68,7 @@
                 <button class="add-button">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
-                <button class="remove-button">
+                <button class="remove-button" id="firstRemBtn">
                     <i class="fa fa-minus" aria-hidden="true"></i>
                 </button>
             </div>
@@ -74,8 +77,11 @@
 
 
     <div class="calculation">
-        <div class="total-price-wrapper">
+        <input type="checkbox" value="noVat" id="noVat" name="noVat" checked/> <label id="checkboxLabel">I do not want to calculate with added VAT</label>
+
+        <div id="total-price-wrapper">
             <p>Click here to calculate the total price without added VAT:</p>
+
             <button class="calculate">
                 Calculate
             </button>
@@ -83,7 +89,7 @@
             <span></span>
         </div>
 
-        <div class="vat-wrapper">
+        <div id="vat-wrapper">
             <label>
                 VAT:
             </label>
@@ -95,8 +101,9 @@
             </label>
         </div>
 
-        <div class="total-price-wrapper">
+        <div id="total-price-and-vat-wrapper">
             <p>Click here to calculate the total price with added VAT:</p>
+
             <button class="calculate">
                 Calculate
             </button>
@@ -104,6 +111,7 @@
             <span></span>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
