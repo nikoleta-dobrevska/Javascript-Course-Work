@@ -221,10 +221,12 @@ const totalPriceAndVatWrapper = document.getElementById("total-price-and-vat-wra
 
 checkBox.addEventListener('click', check);
 
+//checkbox function for the VAT field display
 function check() {
     if (!checkBox.checked) {
         totalPriceAndVatWrapper.style.display = "flex";
         vatWrapper.style.display = "block";
+        vatWrapper.style.marginTop = "20px";
         totalPriceWrapper.style.display = "none"
     } else {
         totalPriceAndVatWrapper.style.display = "none";
@@ -232,4 +234,3 @@ function check() {
         totalPriceWrapper.style.display = "flex"
     }
 }
-
